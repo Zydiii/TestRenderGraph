@@ -8,6 +8,10 @@
 namespace RG {
 	class RG_renderpass_builder;
 
+	/// <summary>
+	/// render pass
+	/// </summary>
+	/// <typeparam name="resource_type_">资源类型</typeparam>
 	template<typename resource_type_>
 	class RG_renderpass : RG_renderpass_base {
 	public:
