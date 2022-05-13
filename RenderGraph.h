@@ -2,6 +2,12 @@
 
 #include <stack>
 #include <fstream>
+#include <type_traits>
+#include <algorithm>
+#include <iterator>
+#include <vector>
+#include <memory>
+#include <string>
 
 #include "RG_resource.h"
 #include "RG_renderpass.h"
@@ -240,4 +246,27 @@ namespace RG {
 		std::vector<std::unique_ptr<RG_resource_base>> resources_; // 所有的资源
 		std::vector<step> timeline_; // 时间轴
 	};
+
+	template<typename resource_type, typename description_type>
+	resource_type* RG_renderpass_builder::create(const std::string& name, const description_type& description) {
+		//static_assert(std::is_same<typename resource_type::description_type, description_type>::value, "Description does not match resources.");
+		rendergraph_->resources_.emplace_back(std::make_unique<resource_type>(name, renderpass_, description));
+		const auto resource = rendergraph_->resources_.back().get();
+		renderpass_->creates_.push_back(resource);
+		return static_cast<resource_type*>(resource);
+	}
+
+	template<typename resource_type>
+	resource_type* RG_renderpass_builder::read(resource_type* resource) {
+		resource->readers_.push_back(renderpass_);
+		renderpass_->reads_.push_back(resource);
+		return resource;
+	}
+
+	template<typename resource_type>
+	resource_type* RG_renderpass_builder::write(resource_type* resource) {
+		resource->writers_.push_back(renderpass_);
+		renderpass_->writes_.push_back(resource);
+		return resource;
+	}
 }

@@ -13,7 +13,7 @@ namespace RG {
 	/// </summary>
 	/// <typeparam name="resource_type_">资源类型</typeparam>
 	template<typename resource_type_>
-	class RG_renderpass : RG_renderpass_base {
+	class RG_renderpass : public RG_renderpass_base {
 	public:
 		explicit RG_renderpass(const std::string& name, const std::function<void(resource_type_&, RG_renderpass_builder&)>& setup, const std::function<void(const resource_type_&)>& execute)
 			: RG_renderpass_base(name), setup_(setup), execute_(execute) {

@@ -1,0 +1,30 @@
+digraph framegraph 
+{
+rankdir = LR
+bgcolor = white
+
+node [shape=rectangle, fontname="Times-Roman", fontsize=12]
+
+"Render Task 1" [label="Render Task 1\nRefs: 4", style=filled, fillcolor=orange]
+"Render Task 2" [label="Render Task 2\nRefs: 2", style=filled, fillcolor=orange]
+"Render Task 3" [label="Render Task 3\nRefs: 1", style=filled, fillcolor=orange]
+
+"Retained Resource 1" [label="Retained Resource 1\nRefs: 0\nID: 0", style=filled, fillcolor= skyblue4]
+"Resource 1" [label="Resource 1\nRefs: 1\nID: 1", style=filled, fillcolor= skyblue]
+"Resource 2" [label="Resource 2\nRefs: 1\nID: 2", style=filled, fillcolor= skyblue]
+"Resource 3" [label="Resource 3\nRefs: 1\nID: 3", style=filled, fillcolor= skyblue]
+"Resource 4" [label="Resource 4\nRefs: 1\nID: 4", style=filled, fillcolor= skyblue]
+
+"Render Task 1" -> { "Resource 1" "Resource 2" "Resource 3" } [color=firebrick]
+"Render Task 1" -> { "Retained Resource 1" } [color=deeppink]
+"Render Task 2" -> { "Resource 4" } [color=firebrick]
+"Render Task 2" -> { "Resource 3" } [color=deeppink]
+"Render Task 3" -> { } [color=firebrick]
+"Render Task 3" -> { "Retained Resource 1" } [color=deeppink]
+
+"Retained Resource 1" -> { } [color=forestgreen]
+"Resource 1" -> { "Render Task 2" } [color=forestgreen]
+"Resource 2" -> { "Render Task 2" } [color=forestgreen]
+"Resource 3" -> { "Render Task 3" } [color=forestgreen]
+"Resource 4" -> { "Render Task 3" } [color=forestgreen]
+}

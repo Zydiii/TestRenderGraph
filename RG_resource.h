@@ -16,10 +16,10 @@ namespace RG {
 	/// <typeparam name="description_type_">资源描述</typeparam>
 	/// <typeparam name="actual_type_">实际类型</typeparam>
 	template<typename description_type_, typename actual_type_>
-	class RG_resource : public RG_resource {
+	class RG_resource : public RG_resource_base {
 	public:
 		explicit RG_resource(const std::string& name, const RG_renderpass_base* creator, const description_type_& description)
-			: RG_resource_base(name, creator), description_type(description), actual_type(std::unique_ptr<actual_type>()) {
+			: RG_resource_base(name, creator), description_type(description), actual_type(std::unique_ptr<actual_type_>()) {
 
 		}
 
@@ -37,7 +37,7 @@ namespace RG {
 
 		actual_type_* actual() const {
 			return std::holds_alternative<std::unique_ptr<actual_type_>>(actual_type) ?
-				std::get<std::unique_ptr<actual_type_>>(actual_type).get() : std::get<actual_type_*>(actual_);
+				std::get<std::unique_ptr<actual_type_>>(actual_type).get() : std::get<actual_type_*>(actual_type);
 		}
 	protected:
 		void realize() override {

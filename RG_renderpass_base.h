@@ -29,7 +29,7 @@ namespace RG {
 		}
 
 		bool cull() const {
-			return cull;
+			return cull_;
 		}
 
 		void set_cull(const bool cull) {
