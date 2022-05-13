@@ -33,6 +33,10 @@ namespace RG {
 			name_ = name;
 		}
 
+		bool transient() const {
+			return creator_ != nullptr;
+		}
+
 	protected:
 		friend RenderGraph;
 		friend RG_renderpass_builder;

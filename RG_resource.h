@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "RG_resource.h"
+#include "RG_resource_base.h"
 #include "RG_resource_realize.h"
 
 namespace RG {
@@ -41,11 +41,13 @@ namespace RG {
 		}
 	protected:
 		void realize() override {
-			std::get<std::unique_ptr<actual_type_>>(actual_type) = RG::realize<description_type_, actual_type_>(description_type);
+			if(transient())
+				std::get<std::unique_ptr<actual_type_>>(actual_type) = RG::realize<description_type_, actual_type_>(description_type);
 		}
 
 		void derealize() override {
-			std::get<std::unique_ptr<actual_type_>>(actual_type).reset();
+			if(transient())
+				std::get<std::unique_ptr<actual_type_>>(actual_type).reset();
 		}
 
 		description_type_ description_type; // ×ÊÔ´ÃèÊö
