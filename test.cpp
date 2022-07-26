@@ -44,7 +44,7 @@ int main()
 
     auto retained_resource = rendergraph.add_retained_resource("Retained Resource 1", resource_type::texture_description(), static_cast<resource_type::texture_2d*>(nullptr));
 
-    // First render task declaration.
+    // render pass
     struct render_task_1_data
     {
         resource_type::texture_2d_resource* output1;
@@ -63,7 +63,6 @@ int main()
         },
         [=](const render_task_1_data& data)
         {
-            // Perform actual rendering. You may load resources from CPU by capturing them.
             auto actual1 = data.output1->actual();
             auto actual2 = data.output2->actual();
             auto actual3 = data.output3->actual();
@@ -72,7 +71,7 @@ int main()
 
     auto& data_1 = render_task_1->data();
 
-    // Second render pass declaration.
+    // render pass
     struct render_task_2_data
     {
         resource_type::texture_2d_resource* input1;
@@ -91,7 +90,6 @@ int main()
         },
         [=](const render_task_2_data& data)
         {
-            // Perform actual rendering. You may load resources from CPU by capturing them.
             auto actual1 = data.input1->actual();
             auto actual2 = data.input2->actual();
             auto actual3 = data.output1->actual();
@@ -100,6 +98,7 @@ int main()
 
     auto& data_2 = render_task_2->data();
 
+    // render pass
     struct render_task_3_data
     {
         resource_type::texture_2d_resource* input1;
@@ -116,7 +115,6 @@ int main()
         },
         [=](const render_task_3_data& data)
         {
-            // Perform actual rendering. You may load resources from CPU by capturing them.
             auto actual1 = data.input1->actual();
             auto actual2 = data.input2->actual();
             auto actual3 = data.output->actual();

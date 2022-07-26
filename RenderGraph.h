@@ -154,9 +154,9 @@ namespace RG {
 
 					if (valid && render_passes_[last_index] == render_pass)
 						derealized_resources.push_back(const_cast<RG_resource_base*>(resource));
-
-					timeline_.push_back(step{ render_pass.get(), realized_resources, derealized_resources });
 				}
+
+				timeline_.push_back(step{ render_pass.get(), realized_resources, derealized_resources });
 			}
 
 		}
